@@ -1,0 +1,35 @@
+.menu{
+    color:#ff0000;
+}
+.menuwrapper{
+    width:100%;
+height:50px;
+display:flex;
+cursor:pointer;
+color:blueviolet;
+}
+.menufirstdiv{
+    width:50%;
+    border:1px solid #000;
+
+    display:flex;
+    justify-content: center;
+    align-items:center
+}
+.menuseconddiv{
+
+    width:50%;
+    border:1px solid #000;
+
+    display:flex;
+    justify-content: center;
+    align-items:center
+
+}
+.menubody{
+    display:flex;
+justify-content: center;
+margin-top:50px;
+color:black;
+align-items:center;
+}
