@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from "./Menu.module.css"
-import Prajwal from '../Tables/prajwal'
-import Susanktable from '../Tables/susanktable'
+import Prajwal from '../Tables/Prajwal'
+import Susanktable from '../Tables/Susanktable'
 const Menu = () => {
   const [active,setActive]=useState(null);
   const showPrajwal=()=>{
