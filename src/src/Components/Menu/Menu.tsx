@@ -20,8 +20,7 @@ const Menu = () => {
   
   return (
     <div className={styles.menu}>
-  <input type="text" placeholder="type something" value={value} onChange={handleclick}/>
-  <p>{value}</p>
+
         <div className={styles.menuwrapper}>
 <div onClick={showPrajwal} className={styles.menufirstdiv}>Prajwal</div>
 <div onClick={showSusank}className={styles.menuseconddiv}>Susank</div>

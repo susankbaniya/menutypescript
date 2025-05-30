@@ -4,7 +4,7 @@ body{
         display:flex;
     justify-content: center;
     align-items: center;
-    background-color: black;
+    /* background-color: black; */
 }
 h1{
     text-align:center
@@ -36,7 +36,7 @@ border:none;
     height:auto;
     background-color: bisque;
       display:flex;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
     border:1px solid black;
     margin-top:100px;
@@ -51,6 +51,5 @@ border:none;
     outline:none;
     border:none;
     border-radius:20px;
-    margin-top:20px;
     cursor:pointer;
 }

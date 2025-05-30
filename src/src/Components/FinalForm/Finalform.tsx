@@ -1,11 +1,22 @@
 import React from 'react';
-import { Formik, Form, Field } from 'formik';
+import { Form, Field } from 'react-final-form';
 import Styles from '../Hookform/Hookform.module.css';
 
-const Formikexample = () => {
+const Finalform = () => {
+  const onSubmit = async (values) => {
+    console.log('Form submission started', values);
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    try {
+      window.alert('File submitted successfully');
+    } catch (error) {
+      console.error('Alert failed:', error);
+    }
+    console.log('submitted', values);
+  };
+
   const validate = (values) => {
     const errors = {};
-
+    
     if (!values.firstName) {
       errors.firstName = 'First name is required';
     } else if (values.firstName.length > 20) {
@@ -44,37 +55,26 @@ const Formikexample = () => {
 
   return (
     <div className={Styles.FormWrapper}>
-      <Formik
+      <Form
+        onSubmit={onSubmit}
+        validate={validate}
         initialValues={{
           firstName: '',
           lastName: '',
           email: '',
           file: null,
         }}
-        validate={validate}
-        onSubmit={async (values, { setSubmitting }) => {
-          console.log('Form submission started', values);
-          await new Promise((resolve) => setTimeout(resolve, 5000));
-          try {
-            window.alert('File submitted successfully');
-          } catch (error) {
-            console.error('Alert failed:', error);
-          }
-          console.log('submitted', values); // Fixed typo: console.lo g -> console.log
-          setSubmitting(false);
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form>
+        render={({ handleSubmit, submitting }) => (
+          <form onSubmit={handleSubmit}>
             <h1>Form submission</h1>
-
+            
             <div className={Styles.inputlabel}>
-              <label htmlFor="firstName">First Name:</label>
+              <label>First Name:</label>
               <Field name="firstName">
-                {({ field, meta }) => (
+                {({ input, meta }) => (
                   <div>
                     <input
-                      {...field}
+                      {...input}
                       className={`${Styles.inputfield} ${meta.touched && meta.error ? Styles.inputerror : ''}`}
                       placeholder="First name"
                     />
@@ -85,12 +85,12 @@ const Formikexample = () => {
             </div>
 
             <div className={Styles.inputlabel}>
-              <label htmlFor="lastName">Last Name:</label>
+              <label>Last Name:</label>
               <Field name="lastName">
-                {({ field, meta }) => (
+                {({ input, meta }) => (
                   <div>
                     <input
-                      {...field}
+                      {...input}
                       className={`${Styles.inputfield} ${meta.touched && meta.error ? Styles.inputerror : ''}`}
                       placeholder="Enter last Name"
                     />
@@ -101,12 +101,12 @@ const Formikexample = () => {
             </div>
 
             <div className={Styles.inputlabel}>
-              <label htmlFor="email">Email:</label>
-              <Field name="email" type="email">
-                {({ field, meta }) => (
+              <label>Email:</label>
+              <Field name="email">
+                {({ input, meta }) => (
                   <div>
                     <input
-                      {...field}
+                      {...input}
                       type="email"
                       className={`${Styles.inputfield} ${meta.touched && meta.error ? Styles.inputerror : ''}`}
                       placeholder="Enter email"
@@ -120,14 +120,14 @@ const Formikexample = () => {
             <div className={Styles.inputfile}>
               <label htmlFor="file">Upload CV (PDF, DOC, DOCX):</label>
               <Field name="file">
-                {({ field, meta }) => (
+                {({ input, meta }) => (
                   <div>
                     <input
                       id="file"
                       type="file"
                       accept=".pdf,.doc,.docx"
                       className={`${Styles.inputfield} ${meta.touched && meta.error ? Styles.inputerror : ''}`}
-                      onChange={(e) => field.onChange({ target: { name: 'file', value: e.target.files } })}
+                      onChange={(e) => input.onChange(e.target.files)}
                     />
                     {meta.touched && meta.error && <p className={Styles.inputerror}>{meta.error}</p>}
                   </div>
@@ -137,15 +137,15 @@ const Formikexample = () => {
 
             <input
               type="submit"
-              value={isSubmitting ? 'Submitting' : 'Submit'}
-              disabled={isSubmitting}
+              value={submitting ? 'Submitting' : 'Submit'}
+              disabled={submitting}
               className={Styles.submitbutton}
             />
-          </Form>
+          </form>
         )}
-      </Formik>
+      />
     </div>
   );
 };
 
-export default Formikexample;
+export default Finalform;
