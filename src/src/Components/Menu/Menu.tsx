@@ -3,7 +3,14 @@ import styles from "./Menu.module.css"
 import Prajwal from '../Tables/prajwal'
 import Susanktable from '../Tables/susanktable'
 const Menu = () => {
-  const [active,setActive]=useState(null);
+  const [active,setActive]=useState("");
+ 
+ const [value,setValue]=useState("");
+ const[submitted,setSubmitted]=useState("");
+ const handleclick=(e)=>{
+  setValue(e.target.value);
+ }
+
   const showPrajwal=()=>{
     setActive('Prajwal')
   }
@@ -11,9 +18,10 @@ const Menu = () => {
     setActive('Susanktable')
   }
   
-  
   return (
     <div className={styles.menu}>
+  <input type="text" placeholder="type something" value={value} onChange={handleclick}/>
+  <p>{value}</p>
         <div className={styles.menuwrapper}>
 <div onClick={showPrajwal} className={styles.menufirstdiv}>Prajwal</div>
 <div onClick={showSusank}className={styles.menuseconddiv}>Susank</div>
@@ -22,7 +30,7 @@ const Menu = () => {
           <div className={styles.menubody}>
         {active === 'Prajwal' && <Prajwal />}
       {active === 'Susanktable' && <Susanktable/>}
-      {active === null && <h1>Click a div to show a component</h1>}
+      {active === "" && <h1>Click a div to show a component</h1>}
         </div>
     </div>
   )

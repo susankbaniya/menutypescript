@@ -39,10 +39,10 @@ const data: User[] = [
 ];
 
 
-interface PrajwalProps {
+interface SusankProps {
   users: User[];
 }
-const Susanktable: React.FC<PrajwalProps> = ({ users = data }) => {
+const Susanktable=({ users = data }: SusankProps) => {
   return (
       <div className={styles.tableContainer}>
         <h1  className={styles.heading}>Susank Table </h1>
@@ -59,6 +59,7 @@ const Susanktable: React.FC<PrajwalProps> = ({ users = data }) => {
         <tbody>
           {users.map((item, index) => (
             <tr key={index}>
+         
               <td>{item.name}</td>
               <td>{item.age}</td>
               <td>{item.sex}</td>
