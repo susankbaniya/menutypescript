@@ -1,11 +1,18 @@
-import { Form, Field } from 'react-final-form';
-import { useState } from 'react';
+import { Form, Field } from "react-final-form";
+import { useState } from "react";
 
 function FinalFormInput() {
-  const [submitted, setSubmitted] = useState('');
+  const [submitted, setSubmitted] = useState("");
 
   const handleSubmit = (values) => {
     setSubmitted(values.inputValue);
+  };
+
+  // Validation function for the input field
+  const validateInput = (value) => {
+    if (!value) return "Input is required";
+    if (value.length < 3) return "Must be at least 3 characters";
+    return undefined; // No error
   };
 
   return (
@@ -14,7 +21,7 @@ function FinalFormInput() {
         Final Form
       </h1>
 
-      <Form  //Wraps the entire form, handles state and submit.
+      <Form //Wraps the entire form, handles state and submit.
         onSubmit={handleSubmit}
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
@@ -25,16 +32,28 @@ function FinalFormInput() {
               >
                 INPUT
               </label>
-              <Field  //Represents individual form fields, auto-connects to state.
+              <Field //Represents individual form fields, auto-connects to state.
                 name="inputValue"
-                render={({ input }) => (
+                validate={validateInput}
+                render={({ input, meta }) => (
+                  <div>
+
                   <input
                     {...input}
                     id="nameInput"
                     type="text"
                     placeholder="Type something"
-                    className="w-full px-4 py-2 border text-xl"
-                  />
+                    className={`w-full px-4 py-2 border text-xl" ${
+                      meta.error && meta.touched ? 'border-red-500' : ''
+                      }`}
+                      />
+                  {/* Error message display */}
+                    {meta.error && meta.touched && (
+                      <span className="text-red-600 text-sm mt-1 block">
+                        {meta.error}
+                      </span>
+                       )}
+                </div>
                 )}
               />
             </div>
